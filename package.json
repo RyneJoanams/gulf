@@ -1,0 +1,11 @@
+{
+  "name": "gulf",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/RyneJoanams/gulf.git",
+  "author": "Ryne <rynejoanamslukhwili@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "react-router-dom": "^6.26.2"
+  }
+}
