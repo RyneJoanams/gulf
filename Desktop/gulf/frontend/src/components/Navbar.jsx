@@ -57,35 +57,35 @@ const Navbar = () => {
               }`}
             >
               <Link
-                to="/front-office"
+                to="/Front-office"
                 className="block px-4 py-2 hover:bg-teal-700 transition duration-300"
                 onClick={() => setDropdownOpen(false)}
               >
                 Front Office
               </Link>
               <Link
-                to="/accounts"
+                to="/Accounts"
                 className="block px-4 py-2 hover:bg-teal-700 transition duration-300"
                 onClick={() => setDropdownOpen(false)}
               >
                 Accounts
               </Link>
               <Link
-                to="/phlebotomy"
+                to="/Phlebotomy"
                 className="block px-4 py-2 hover:bg-teal-700 transition duration-300"
                 onClick={() => setDropdownOpen(false)}
               >
                 Phlebotomy
               </Link>
               <Link
-                to="/laboratory"
+                to="/Laboratory"
                 className="block px-4 py-2 hover:bg-teal-700 transition duration-300"
                 onClick={() => setDropdownOpen(false)}
               >
                 Laboratory
               </Link>
               <Link
-                to="/clinical"
+                to="/Clinical"
                 className="block px-4 py-2 hover:bg-teal-700 transition duration-300"
                 onClick={() => setDropdownOpen(false)}
               >
