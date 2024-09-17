@@ -1,9 +1,16 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false); // Mobile menu state
-  const [dropdownOpen, setDropdownOpen] = useState(false); // Dropdown menu state for services
+  const [dropdownOpen, setDropdownOpen] = useState(false); // Dropdown menu state for departments
+  const navigate = useNavigate();
+
+  // Handle department selection and navigate to the login page with department info
+  const handleDepartmentSelection = (department) => {
+    setDropdownOpen(false); // Close the dropdown menu
+    navigate('/login', { state: { department } }); // Navigate to the login page with department info
+  };
 
   return (
     <nav className="bg-gradient-to-r from-teal-600 to-teal-500 shadow-lg fixed w-full z-20 top-0 left-0 animate-fadeInDown">
@@ -22,21 +29,19 @@ const Navbar = () => {
             className="text-white w-1/6 text-center hover:text-gray-200 relative group transition-all duration-300"
           >
             About Us
-            <span className="absolute bottom-0 left-0 w-[30px] h-[3px] bg-white group-hover:w-full transition-all duration-500 ease-in-out"></span>
+            <span className="absolute bottom-0 left-0 w-[0px] h-[3px] bg-white group-hover:w-full transition-all duration-500 ease-in-out"></span>
           </Link>
 
-          {/* Services Dropdown */}
+          {/* Departments Dropdown */}
           <div className="relative w-1/6 text-center">
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
               className="text-white w-full hover:text-gray-200 relative group transition-all duration-300 focus:outline-none"
             >
-              Services
-              <span className="absolute bottom-0 left-0 w-[30px] h-[2px] bg-white group-hover:w-full transition-all duration-500 ease-in-out"></span>
+              Departments
+              <span className="absolute bottom-0 left-0 w-[0px] h-[2px] bg-white group-hover:w-full transition-all duration-500 ease-in-out"></span>
               <svg
-                className={`w-4 h-4 inline-block ml-2 transition-transform duration-300 ${
-                  dropdownOpen ? "transform rotate-180" : ""
-                }`}
+                className={`w-4 h-4 inline-block ml-2 transition-transform duration-300 ${dropdownOpen ? "rotate-180" : ""}`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -56,65 +61,52 @@ const Navbar = () => {
                 dropdownOpen ? "block opacity-100" : "hidden opacity-0"
               }`}
             >
-              <Link
-                to="/Front-office"
-                className="block px-4 py-2 hover:bg-teal-700 transition duration-300"
-                onClick={() => setDropdownOpen(false)}
+              <button
+                className="block w-full text-left px-4 py-2 hover:bg-teal-700 transition duration-300"
+                onClick={() => handleDepartmentSelection('Front-office')}
               >
                 Front Office
-              </Link>
-              <Link
-                to="/Accounts"
-                className="block px-4 py-2 hover:bg-teal-700 transition duration-300"
-                onClick={() => setDropdownOpen(false)}
+              </button>
+              <button
+                className="block w-full text-left px-4 py-2 hover:bg-teal-700 transition duration-300"
+                onClick={() => handleDepartmentSelection('Accounts')}
               >
                 Accounts
-              </Link>
-              <Link
-                to="/Phlebotomy"
-                className="block px-4 py-2 hover:bg-teal-700 transition duration-300"
-                onClick={() => setDropdownOpen(false)}
+              </button>
+              <button
+                className="block w-full text-left px-4 py-2 hover:bg-teal-700 transition duration-300"
+                onClick={() => handleDepartmentSelection('Phlebotomy')}
               >
                 Phlebotomy
-              </Link>
-              <Link
-                to="/Laboratory"
-                className="block px-4 py-2 hover:bg-teal-700 transition duration-300"
-                onClick={() => setDropdownOpen(false)}
+              </button>
+              <button
+                className="block w-full text-left px-4 py-2 hover:bg-teal-700 transition duration-300"
+                onClick={() => handleDepartmentSelection('Laboratory')}
               >
                 Laboratory
-              </Link>
-              <Link
-                to="/Clinical"
-                className="block px-4 py-2 hover:bg-teal-700 transition duration-300"
-                onClick={() => setDropdownOpen(false)}
+              </button>
+              <button
+                className="block w-full text-left px-4 py-2 hover:bg-teal-700 transition duration-300"
+                onClick={() => handleDepartmentSelection('Clinical')}
               >
                 Clinical
-              </Link>
-              
+              </button>
             </div>
           </div>
 
-          <Link
-            to="/departments"
-            className="text-white w-1/6 text-center hover:text-gray-200 relative group transition-all duration-300"
-          >
-            Departments
-            <span className="absolute bottom-0 left-0 w-[30px] h-[2px] bg-white group-hover:w-full transition-all duration-500 ease-in-out"></span>
-          </Link>
           <Link
             to="/contact"
             className="text-white w-1/6 text-center hover:text-gray-200 relative group transition-all duration-300"
           >
             Contact Us
-            <span className="absolute bottom-0 left-0 w-[30px] h-[2px] bg-white group-hover:w-full transition-all duration-500 ease-in-out"></span>
+            <span className="absolute bottom-0 left-0 w-[0px] h-[2px] bg-white group-hover:w-full transition-all duration-500 ease-in-out"></span>
           </Link>
           <Link
             to="/admin"
             className="text-white w-1/6 text-center hover:text-gray-200 relative group transition-all duration-300"
           >
             Admin
-            <span className="absolute bottom-0 left-0 w-[30px] h-[2px] bg-white group-hover:w-full transition-all duration-500 ease-in-out"></span>
+            <span className="absolute bottom-0 left-0 w-[0px] h-[2px] bg-white group-hover:w-full transition-all duration-500 ease-in-out"></span>
           </Link>
         </div>
 
@@ -157,15 +149,16 @@ const Navbar = () => {
           >
             About Us
           </Link>
+
           <div className="relative">
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
               className="text-white text-lg hover:bg-teal-700 py-3 rounded-lg transition duration-300 w-full text-left flex items-center justify-between"
             >
-              Services
+              Departments
               <svg
                 className={`w-4 h-4 transition-transform duration-300 ${
-                  dropdownOpen ? "transform rotate-180" : ""
+                  dropdownOpen ? "rotate-180" : ""
                 }`}
                 fill="none"
                 stroke="currentColor"
@@ -180,42 +173,46 @@ const Navbar = () => {
                 />
               </svg>
             </button>
+
             {/* Mobile Dropdown Menu */}
             <div
               className={`absolute left-0 w-full mt-2 bg-teal-800 text-white rounded-lg shadow-lg transition-all duration-300 ${
                 dropdownOpen ? "block opacity-100" : "hidden opacity-0"
               }`}
             >
-              <Link
-                to="/service1"
-                className="block px-4 py-2 hover:bg-teal-900 transition duration-300"
-                onClick={() => setIsOpen(false)}
+              <button
+                className="block w-full text-left px-4 py-2 hover:bg-teal-900 transition duration-300"
+                onClick={() => handleDepartmentSelection('Front-office')}
               >
-                Service 1
-              </Link>
-              <Link
-                to="/service2"
-                className="block px-4 py-2 hover:bg-teal-900 transition duration-300"
-                onClick={() => setIsOpen(false)}
+                Front Office
+              </button>
+              <button
+                className="block w-full text-left px-4 py-2 hover:bg-teal-900 transition duration-300"
+                onClick={() => handleDepartmentSelection('Accounts')}
               >
-                Service 2
-              </Link>
-              <Link
-                to="/service3"
-                className="block px-4 py-2 hover:bg-teal-900 transition duration-300"
-                onClick={() => setIsOpen(false)}
+                Accounts
+              </button>
+              <button
+                className="block w-full text-left px-4 py-2 hover:bg-teal-900 transition duration-300"
+                onClick={() => handleDepartmentSelection('Phlebotomy')}
               >
-                Service 3
-              </Link>
+                Phlebotomy
+              </button>
+              <button
+                className="block w-full text-left px-4 py-2 hover:bg-teal-900 transition duration-300"
+                onClick={() => handleDepartmentSelection('Laboratory')}
+              >
+                Laboratory
+              </button>
+              <button
+                className="block w-full text-left px-4 py-2 hover:bg-teal-900 transition duration-300"
+                onClick={() => handleDepartmentSelection('Clinical')}
+              >
+                Clinical
+              </button>
             </div>
           </div>
-          <Link
-            to="/departments"
-            className="text-white text-lg hover:bg-teal-700 py-3 rounded-lg transition duration-300 hover:shadow-lg hover:scale-105 transform"
-            onClick={() => setIsOpen(false)}
-          >
-            Departments
-          </Link>
+
           <Link
             to="/contact"
             className="text-white text-lg hover:bg-teal-700 py-3 rounded-lg transition duration-300 hover:shadow-lg hover:scale-105 transform"
@@ -237,3 +234,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

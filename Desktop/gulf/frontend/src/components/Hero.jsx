@@ -90,7 +90,7 @@ const Hero = () => {
       </video>
       <h3 ref={headingRef} style={headingStyle}>
         <TypingEffect
-          text={['Welcome to Our Website', 'Explore Our Services', 'Discover Opportunities']}
+          text={['Welcome to Gulf Medical', 'Explore Our Services', 'Discover Opportunities']}
           speed={100}
           eraseSpeed={50}
           typingDelay={500}
@@ -99,7 +99,7 @@ const Hero = () => {
       </h3>
       <p ref={paragraphRef} style={paragraphStyle}>
         A cutting-edge health center combines state-of-the-art<br />
-        technology and innovative treatments<br />
+        technology and innovative medical check-ups<br />
         for superior patient care.
       </p>
       <button
