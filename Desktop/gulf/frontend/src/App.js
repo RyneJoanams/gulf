@@ -1,26 +1,21 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from "../src/pages/Home/Home.jsx";
-import FrontOffice from './pages/Front-office';
-import Accounts from './pages/Accounts';
-import Phlebotomy from './pages/Phlebotomy';
-import Lab from './pages/Lab';
-import Clinical from './pages/Clinical';
 import Admin from './pages/Admin';
-
-
+import Login from './components/Login';
+import DepartmentSelection from './components/DepartmentSelection';
 
 const App = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/front-office" element={<FrontOffice />} />
-        <Route path="/accounts" element={<Accounts />} />
-        <Route path="/phlebotomy" element={<Phlebotomy />} />
-        <Route path="/lab" element={<Lab />} />
-        <Route path="/clinical" element={<Clinical />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/DepartmentSelection" element={<DepartmentSelection />} />
         <Route path="/admin" element={<Admin />} />
+
+        {/* If DepartmentSelection is not used as a page, remove its route */}
+        {/* <Route path="/DepartmentSelection" element={<DepartmentSelection />} /> */}
 
         {/* Add more routes as needed */}
       </Routes>
