@@ -16,12 +16,12 @@ function Login() {
 
   // Mapping departments to their respective routes
   const departmentRoutes = {
-    'Front-office': '/front-office',
-    'Accounts': '/accounts',
-    'Phlebotomy': '/phlebotomy',
-    'Laboratory': '/lab',
-    'Clinical': '/clinical',
-    'Admin': '/admin',
+    'Front-office': '/Front-office',
+    'Accounts': '/Accounts',
+    'Phlebotomy': '/Phlebotomy',
+    'Laboratory': '/Lab',
+    'Clinical': '/Clinical',
+    'Admin': '/Admin',
   };
 
   const handleSubmit = (values, { setSubmitting }) => {
@@ -33,7 +33,7 @@ function Login() {
       alert('Invalid credentials');
     }
     setSubmitting(false);  // Finish submission process
-  };
+  }; 
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">

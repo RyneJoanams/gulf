@@ -14,11 +14,11 @@ const Navbar = () => {
 
   return (
     <nav className="bg-gradient-to-r from-teal-600 to-teal-500 shadow-lg fixed w-full z-20 top-0 left-0 animate-fadeInDown">
-      <div className="container mx-auto px-16 py-10 flex justify-between items-center">
+      <div className="container mx-auto px-16 py-4 flex justify-between items-center">
         {/* Logo */}
         <div className="text-white text-3xl font-extrabold tracking-tight hover:animate-pulse">
           <Link to="/" className="hover:text-gray-300 transition duration-300">
-            Gulf Medical
+            GHCK
           </Link>
         </div>
 
@@ -102,7 +102,7 @@ const Navbar = () => {
             <span className="absolute bottom-0 left-0 w-[0px] h-[2px] bg-white group-hover:w-full transition-all duration-500 ease-in-out"></span>
           </Link>
           <Link
-            to="/admin"
+            to="/Admin"
             className="text-white w-1/6 text-center hover:text-gray-200 relative group transition-all duration-300"
           >
             Admin

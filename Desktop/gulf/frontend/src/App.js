@@ -10,13 +10,11 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/Login" element={<Login />} /> 
         <Route path="/DepartmentSelection" element={<DepartmentSelection />} />
-        <Route path="/admin" element={<Admin />} />
+        <Route path="/Admin" element={<Admin />} />
 
         {/* If DepartmentSelection is not used as a page, remove its route */}
-        {/* <Route path="/DepartmentSelection" element={<DepartmentSelection />} /> */}
-
         {/* Add more routes as needed */}
       </Routes>
     </Router>

@@ -51,37 +51,7 @@ const Hero = () => {
     transition: 'opacity 1s ease-in-out',
     animation: 'fadeInUp 1.5s ease-in-out forwards',
   };
-
-  const buttonStyle = {
-    padding: '14px 32px',
-    fontSize: '1.3rem',
-    border: 'none',
-    borderRadius: '50px',
-    background: 'linear-gradient(90deg, #007BFF, #0056b3)',
-    color: 'white',
-    cursor: 'pointer',
-    marginTop: '30px',
-    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-    boxShadow: '0 10px 20px rgba(0, 0, 0, 0.4)',
-  };
-
-  const buttonHoverStyle = {
-    background: 'linear-gradient(90deg, #0056b3, #004494)',
-    transform: 'translateY(-5px) scale(1.07)',
-    boxShadow: '0 15px 30px rgba(0, 0, 0, 0.5)',
-  };
-
-  const scrollButtonStyle = {
-    position: 'absolute',
-    bottom: '20px',
-    background: 'transparent',
-    border: 'none',
-    color: 'white',
-    fontSize: '2rem',
-    cursor: 'pointer',
-    animation: 'bounce 2s infinite',
-  };
-
+   
   return (
     <div style={heroStyle}>
       <Particles params={particlesConfig} />
@@ -102,26 +72,6 @@ const Hero = () => {
         technology and innovative medical check-ups<br />
         for superior patient care.
       </p>
-      <button
-        style={buttonStyle}
-        onMouseOver={(e) => {
-          e.currentTarget.style.background = buttonHoverStyle.background;
-          e.currentTarget.style.transform = buttonHoverStyle.transform;
-          e.currentTarget.style.boxShadow = buttonHoverStyle.boxShadow;
-        }}
-        onMouseOut={(e) => {
-          e.currentTarget.style.background = buttonStyle.background;
-          e.currentTarget.style.transform = 'none';
-          e.currentTarget.style.boxShadow = buttonStyle.boxShadow;
-        }}
-      >
-        Get Started
-      </button>
-
-      {/* Scroll Button */}
-      <Link to="next-section" smooth={true} duration={500} style={scrollButtonStyle}>
-        ↓
-      </Link>
     </div>
   );
 };

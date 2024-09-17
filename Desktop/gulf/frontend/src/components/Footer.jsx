@@ -10,7 +10,7 @@ const Footer = () => {
         <div>
           <div className="text-4xl font-extrabold mb-4">
             <Link to="/" className="hover:text-gray-200 transition duration-300">
-              Gulf Medical Health Centre
+              Gulf Health Centre Kenya.
             </Link>
           </div>
           <p className="text-gray-300 mb-6 leading-relaxed">
@@ -111,9 +111,9 @@ const Footer = () => {
       </div>
 
       {/* Footer Bottom */}
-      <div className="bg-teal-900 text-center py-6 mt-12 border-t border-teal-700 shadow-md">
+      <div className="bg-teal-900 text-center py-3 mt-1 border-t border-teal-700 shadow-md">
         <p className="text-sm">
-          &copy; {new Date().getFullYear()} Gulf Medical Health Centre. All rights reserved.
+          &copy; {new Date().getFullYear()} Gulf Health Centre Kenya. All rights reserved.
         </p>
       </div>
     </footer>
