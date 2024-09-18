@@ -48,7 +48,7 @@ const FrontOffice = () => {
       </Button>
       {showWebcam && (
         <div style={{ marginTop: '10px' }}>
-          <Webcam ref={webcamRef} screenshotFormat="image/jpeg" />
+          <Webcam ref={webcamRef} screenshotFormat="image/jpeg" /> 
           <Button
             variant="contained"
             color="primary"

@@ -16,7 +16,7 @@ function Login() {
 
   // Mapping departments to their respective routes
   const departmentRoutes = {
-    'Front-office': '/Front-office',
+    'FrontOffice': '/FrontOffice',
     'Accounts': '/Accounts',
     'Phlebotomy': '/Phlebotomy',
     'Laboratory': '/Lab',

@@ -4,6 +4,7 @@ import Home from "../src/pages/Home/Home.jsx";
 import Admin from './pages/Admin';
 import Login from './components/Login';
 
+
 const App = () => {
   return (
     <Router>
@@ -11,6 +12,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/Login" element={<Login />} /> 
         <Route path="/Admin" element={<Admin />} />
+        
         {/* Add more routes as needed */}
       </Routes>
     </Router>
