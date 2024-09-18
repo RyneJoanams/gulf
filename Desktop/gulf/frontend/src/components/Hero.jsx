@@ -5,7 +5,6 @@ import TypingEffect from 'react-typing-effect';
 import { useInView } from 'react-intersection-observer';
 import Particles from 'react-tsparticles';
 import { particlesConfig } from '../particle-config';
-import { Link } from 'react-scroll';
 
 const Hero = () => {
   const { ref: headingRef, inView: isHeadingVisible } = useInView({ triggerOnce: true });

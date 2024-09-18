@@ -32,12 +32,12 @@ function Login() {
     } else {
       alert('Invalid credentials');
     }
-    setSubmitting(false);  // Finish submission process
+    setSubmitting(false);  // Finish submission process  
   }; 
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded shadow-lg max-w-md w-full">
+      <div className="bg-white p-10 rounded shadow-lg max-w-md w-full">
         <h1 className="text-2xl font-semibold text-center mb-6">Login to {department}</h1>
 
         <Formik
