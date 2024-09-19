@@ -65,8 +65,8 @@ const FrontOffice = () => {
   // Define form structure based on medical type
   const renderFields = (setFieldValue) => {
     switch (medicalType) {
-      case 'MAURITIUS':
-      case 'FM':
+      
+      case 'MAURITUS':
         return (
           <>
             <Field name="name" label="Name" component={TextField} fullWidth margin="normal" />
@@ -78,15 +78,29 @@ const FrontOffice = () => {
             <Field name="height" label="Height" component={TextField} fullWidth margin="normal" />
             <Field name="weight" label="Weight" component={TextField} fullWidth margin="normal" />
             <Field name="age" label="Age" component={TextField} fullWidth margin="normal" />
-            {medicalType === 'FM' && (
-              <>
-                <Field name="illnessHistory" label="History of Illness" component={TextField} fullWidth margin="normal" />
-                <Field name="allergy" label="Allergy" component={TextField} fullWidth margin="normal" />
-              </>
-            )}
             {renderPhotoInput(setFieldValue)}
-          </>
+            </>
         );
+
+        case 'MEDICAL':
+        case 'FM':
+          return(
+            <>
+            <Field name="name" label="Name" component={TextField} fullWidth margin="normal" />
+            <Field name="passportNumber" label="Passport Number" component={TextField} fullWidth margin="normal" />
+            <Field name="issuingCountry" label="To Issuing Country" component={TextField} fullWidth margin="normal" />
+            <Field name="occupation" label="Occupation" component={TextField} fullWidth margin="normal" />
+            <Field name="recruitingAgency" label="Recruiting Agency" component={TextField} fullWidth margin="normal" />
+            <Field name="sex" label="Sex" component={TextField} fullWidth margin="normal" />
+            <Field name="height" label="Height" component={TextField} fullWidth margin="normal" />
+            <Field name="weight" label="Weight" component={TextField} fullWidth margin="normal" />
+            <Field name="age" label="Age" component={TextField} fullWidth margin="normal" />
+            <Field name="illnessHistory" label="History of past Illness" component={TextField} fullWidth margin="normal" />
+            <Field name="allergy" label="Allergy" component={TextField} fullWidth margin="normal" />  
+            {renderPhotoInput(setFieldValue)}
+            </>
+          );
+
       case 'SM-VDRL':
       case 'NORMAL':
         return (
