@@ -26,12 +26,15 @@ function Login() {
 
   const handleSubmit = (values, { setSubmitting }) => {
     // Simulate authentication logic (replace with real API call)
-    if (values.username === 'user' && values.password === 'pass') {
+   /* if (values.username === 'user' && values.password === 'pass') {
       const route = departmentRoutes[department] || '/';  // Default to home if department is unknown
       navigate(route);
     } else {
       alert('Invalid credentials');
-    }
+    } */
+
+      const route = departmentRoutes[department] || '/'
+      navigate(route)
     setSubmitting(false);  // Finish submission process  
   }; 
 
