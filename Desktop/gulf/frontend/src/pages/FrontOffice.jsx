@@ -65,23 +65,8 @@ const FrontOffice = () => {
   // Define form structure based on medical type
   const renderFields = (setFieldValue) => {
     switch (medicalType) {
-      
-      case 'MAURITUS':
-        return (
-          <>
-            <Field name="name" label="Name" component={TextField} fullWidth margin="normal" />
-            <Field name="passportNumber" label="Passport Number" component={TextField} fullWidth margin="normal" />
-            <Field name="issuingCountry" label="To Issuing Country" component={TextField} fullWidth margin="normal" />
-            <Field name="occupation" label="Occupation" component={TextField} fullWidth margin="normal" />
-            <Field name="recruitingAgency" label="Recruiting Agency" component={TextField} fullWidth margin="normal" />
-            <Field name="sex" label="Sex" component={TextField} fullWidth margin="normal" />
-            <Field name="height" label="Height" component={TextField} fullWidth margin="normal" />
-            <Field name="weight" label="Weight" component={TextField} fullWidth margin="normal" />
-            <Field name="age" label="Age" component={TextField} fullWidth margin="normal" />
-            {renderPhotoInput(setFieldValue)}
-            </>
-        );
-
+    
+        case 'MAURITIUS':
         case 'MEDICAL':
         case 'FM':
           return(
@@ -130,7 +115,7 @@ const FrontOffice = () => {
   return (
     <Container maxWidth="sm">
       <Typography variant="h4" align="center" gutterBottom>
-        Patient Intake Form
+        PATIENT INTAKE FORM
       </Typography>
       <Formik
         initialValues={{
