@@ -6,7 +6,7 @@ import Navbar from '../../components/Navbar';
 import Hero from '../../components/Hero';
 import Footer from '../../components/Footer';
 
-const Home = () => {
+const Home = () => { 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

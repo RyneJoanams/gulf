@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { TextField, Button, MenuItem, CircularProgress, Typography, Container } from '@mui/material';
 import Webcam from 'react-webcam'; // For live capture
-import { Formik, Form, Field, } from 'formik';
+import { Formik, Form, Field,  } from 'formik';
 import * as Yup from 'yup';
+import { usePatient } from '../context/PatientContext.jsx';
+import { submitPatientData } from '../api/patientApi';
 
 // Validation Schema using Yup
 const validationSchema = Yup.object({
@@ -12,15 +14,42 @@ const validationSchema = Yup.object({
   height: Yup.number().min(50, 'Invalid height').max(250, 'Invalid height'),
   weight: Yup.number().min(20, 'Invalid weight').max(200, 'Invalid weight'),
   date: Yup.date().required('Date is required'),
-  sex: Yup.string().required('Sex is required'),
+  sex: Yup.string().required('Sex is required').oneOf(['male', 'female'], 'Invalid sex'),
 });
 
 const medicalTypes = ['MAURITIUS', 'SM-VDRL', 'MEDICAL', 'FM', 'NORMAL'];
+
+const FormikTextField = ({ field, form: { touched, errors }, ...props }) => (
+  <TextField
+    {...field}
+    {...props}
+    error={touched[field.name] && !!errors[field.name]}
+    helperText={touched[field.name] && errors[field.name]}
+    fullWidth
+    margin="normal"
+  />
+);
+
 
 const FrontOffice = () => {
   const [medicalType, setMedicalType] = useState('');
   const [showWebcam, setShowWebcam] = useState(false);
   const webcamRef = React.useRef(null);
+  const { updatePatientData } = usePatient(); //access context
+
+
+  const handleSubmit = async (values, {setSubmitting}) =>{
+    try {
+      await submitPatientData(values);
+      updatePatientData({ personalDetails: values });
+      alert('Patient details submitted successfully');
+    } catch (error) {
+      alert('Error submitting patient details');
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
 
   // Capture image from webcam
   const captureImage = () => {
@@ -71,17 +100,17 @@ const FrontOffice = () => {
         case 'FM':
           return(
             <>
-            <Field name="name" label="Name" component={TextField} fullWidth margin="normal" />
-            <Field name="passportNumber" label="Passport Number" component={TextField} fullWidth margin="normal" />
-            <Field name="issuingCountry" label="To Issuing Country" component={TextField} fullWidth margin="normal" />
-            <Field name="occupation" label="Occupation" component={TextField} fullWidth margin="normal" />
-            <Field name="recruitingAgency" label="Recruiting Agency" component={TextField} fullWidth margin="normal" />
-            <Field name="sex" label="Sex" component={TextField} fullWidth margin="normal" />
-            <Field name="height" label="Height" component={TextField} fullWidth margin="normal" />
-            <Field name="weight" label="Weight" component={TextField} fullWidth margin="normal" />
-            <Field name="age" label="Age" component={TextField} fullWidth margin="normal" />
-            <Field name="illnessHistory" label="History of past Illness" component={TextField} fullWidth margin="normal" />
-            <Field name="allergy" label="Allergy" component={TextField} fullWidth margin="normal" />  
+             <Field name="name" component={FormikTextField} label="Name" />
+            <Field name="passportNumber" component={FormikTextField} label="Passport Number" />
+            <Field name="issuingCountry" component={FormikTextField} label="To Issuing Country" />
+            <Field name="occupation" component={FormikTextField} label="Occupation" />
+            <Field name="recruitingAgency" component={FormikTextField} label="Recruiting Agency" />
+            <Field name="sex" component={FormikTextField} label="Sex" />
+            <Field name="height" component={FormikTextField} label="Height" />
+            <Field name="weight" component={FormikTextField} label="Weight" />
+            <Field name="age" component={FormikTextField} label="Age" />
+            <Field name="illnessHistory" component={FormikTextField} label="History of past Illness" />
+            <Field name="allergy" component={FormikTextField} label="Allergy" />
             {renderPhotoInput(setFieldValue)}
             </>
           );
@@ -90,26 +119,16 @@ const FrontOffice = () => {
       case 'NORMAL':
         return (
           <>
-            <Field name="name" label="Name" component={TextField} fullWidth margin="normal" />
-            <Field name="age" label="Age" component={TextField} fullWidth margin="normal" />
-            <Field name="sex" label="Sex" component={TextField} fullWidth margin="normal" />
-            <Field name="passportNumber" label="Passport Number" component={TextField} fullWidth margin="normal" />
+             <Field name="name" component={FormikTextField} label="Name" />
+            <Field name="age" component={FormikTextField} label="Age" />
+            <Field name="sex" component={FormikTextField} label="Sex" />
+            <Field name="passportNumber" component={FormikTextField} label="Passport Number" />
             {renderPhotoInput(setFieldValue)}
           </>
         );
       default:
         return null;
     }
-  };
-
-  // Form submission handler
-  const handleSubmit = (values, { setSubmitting }) => {
-    console.log('Form data:', values);
-    // Simulate async operation
-    setTimeout(() => {
-      setSubmitting(false);
-      alert('Form submitted successfully');
-    }, 1000);
   };
 
   return (
@@ -135,18 +154,18 @@ const FrontOffice = () => {
         }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
-      >
+      >             
         {({ isSubmitting, setFieldValue }) => (
           <Form>
             <Field
               name="medicalType"
               label="Select Medical Type"
               select
-              component={TextField}
+              as={TextField}
               fullWidth
               margin="normal"
               value={medicalType}
-              onChange={handleMedicalTypeChange}
+              onChange={(e) => handleMedicalTypeChange(e, setFieldValue)}
             >
               {medicalTypes.map((type) => (
                 <MenuItem key={type} value={type}>
@@ -179,3 +198,4 @@ const FrontOffice = () => {
 
 export default FrontOffice;
 
+ 
