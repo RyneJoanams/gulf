@@ -1,4 +1,3 @@
-// src/components/Accounts.js
 import React, { useState } from 'react';
 import { Typography, TextField, Button, Container } from '@mui/material';
 import { usePatient } from '../context/PatientContext';
@@ -14,6 +13,7 @@ const Accounts = () => {
   };
 
   return (
+    
     <Container>
       <Typography variant="h4" align="center">Accounts Office</Typography>
       <Typography variant="h6">Patient Name: {patientData?.personalDetails?.name || 'No data'}</Typography>

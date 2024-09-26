@@ -16,12 +16,16 @@ const Navbar = () => {
     <nav className="bg-gradient-to-r from-teal-600 to-teal-500 shadow-lg fixed w-full z-20 top-0 left-0 animate-fadeInDown">
       <div className="container mx-auto px-16 py-4 flex justify-between items-center">
         {/* Logo */}
-        <div className="text-white text-3xl font-extrabold tracking-tight hover:animate-pulse">
-          <Link to="/" className="hover:text-gray-300 transition duration-300">
-            GHCK
+        <div className="flex items-center">
+          <Link to="/" className="hover:text-gray-300 transition duration-300 flex items-center">
+            <img 
+              src={`${process.env.PUBLIC_URL}/gulf.png`} 
+              alt="GHCK Logo" 
+              className="h-10 w-auto" // Fixed height for the logo
+            />
+            <span className="text-white text-3xl font-extrabold tracking-tight ml-2">GHCK</span>
           </Link>
         </div>
-
         {/* Navigation Links (Desktop) */}
         <div className="hidden md:flex w-[60%] justify-center space-x-6 text-lg">
           <Link

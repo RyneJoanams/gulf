@@ -14,7 +14,8 @@ const Footer = () => {
             </Link>
           </div>
           <p className="text-gray-300 mb-6 leading-relaxed">
-            Exceptional care with a focus on compassion and innovation. Our team is committed to enhancing your health and well-being with the highest standards.
+            Exceptional care with a focus on compassion and innovation.
+             Our team is committed to enhancing your health and well-being with the highest standards.
           </p>
           <div className="flex space-x-6">
             <a
