@@ -31,6 +31,22 @@ const LabReportForm = () => {
       creatinine: { value: '', status: '', range: '' },
     },
     bloodGroup: '',
+
+    // Added Area 1 Fields
+    stoolConsistency: '',
+    stoolMicroscopy: '',
+    tpha: '',
+    vdrlTest: '',
+    venerealDisease: '',
+    pregnancyTest: '',
+    typhoid: '',
+    hydrocele: '',
+    otherDeformities: '',
+    earRight: '',
+    earLeft: '',
+    lungs: '',
+    liver: '',
+    spleen: '',
   };
 
   const validationSchema = Yup.object({
@@ -47,6 +63,22 @@ const LabReportForm = () => {
     urea: Yup.number().required('Urea is required'),
     creatinine: Yup.number().required('Creatinine is required'),
     bloodGroup: Yup.string().required('Blood Group is required'),
+
+    // Added Validation for Area 1 Fields
+    stoolConsistency: Yup.string().required('Stool consistency is required'),
+    stoolMicroscopy: Yup.string().required('Stool microscopy is required'),
+    tpha: Yup.string().required('TPHA is required'),
+    vdrlTest: Yup.string().required('VDRL test is required'),
+    venerealDisease: Yup.string().required('Venereal disease is required'),
+    pregnancyTest: Yup.string().required('Pregnancy test is required'),
+    typhoid: Yup.string().required('Typhoid is required'),
+    hydrocele: Yup.string().required('Hydrocele is required'),
+    otherDeformities: Yup.string().required('Other deformities are required'),
+    earRight: Yup.string().required('Right ear status is required'),
+    earLeft: Yup.string().required('Left ear status is required'),
+    lungs: Yup.string().required('Lung status is required'),
+    liver: Yup.string().required('Liver status is required'),
+    spleen: Yup.string().required('Spleen status is required'),
   });
 
   const handleSubmit = (values) => {
@@ -58,6 +90,92 @@ const LabReportForm = () => {
       {() => (
         <Form>
           <h1>Comprehensive Laboratory Examination Report</h1>
+
+          {/* Area 1: Comprehensive Lab Examination */}
+          <div className="test-section">
+            <h3>Area 1:</h3>
+            
+            {/* Stool Analysis */}
+            <div className="form-group">
+              <label>Stool Consistency:</label>
+              <Field name="stoolConsistency" type="text" />
+              <ErrorMessage name="stoolConsistency" component="div" className="error" />
+            </div>
+            <div className="form-group">
+              <label>Stool Microscopy:</label>
+              <Field name="stoolMicroscopy" type="text" />
+              <ErrorMessage name="stoolMicroscopy" component="div" className="error" />
+            </div>
+
+            {/* TPHA and VDRL */}
+            <div className="form-group">
+              <label>TPHA:</label>
+              <Field name="tpha" type="text" />
+              <ErrorMessage name="tpha" component="div" className="error" />
+            </div>
+            <div className="form-group">
+              <label>VDRL Test:</label>
+              <Field name="vdrlTest" type="text" />
+              <ErrorMessage name="vdrlTest" component="div" className="error" />
+            </div>
+
+            {/* Venereal Disease */}
+            <div className="form-group">
+              <label>Venereal Disease:</label>
+              <Field name="venerealDisease" type="text" />
+              <ErrorMessage name="venerealDisease" component="div" className="error" />
+            </div>
+
+            {/* Pregnancy Test, Typhoid, Hydrocele */}
+            <div className="form-group">
+              <label>Pregnancy Test:</label>
+              <Field name="pregnancyTest" type="text" />
+              <ErrorMessage name="pregnancyTest" component="div" className="error" />
+            </div>
+            <div className="form-group">
+              <label>Typhoid:</label>
+              <Field name="typhoid" type="text" />
+              <ErrorMessage name="typhoid" component="div" className="error" />
+            </div>
+            <div className="form-group">
+              <label>Hydrocele:</label>
+              <Field name="hydrocele" type="text" />
+              <ErrorMessage name="hydrocele" component="div" className="error" />
+            </div>
+
+            {/* Other Deformities, Ear, Lungs, Liver, Spleen */}
+            <div className="form-group">
+              <label>Other Deformities:</label>
+              <Field name="otherDeformities" type="text" />
+              <ErrorMessage name="otherDeformities" component="div" className="error" />
+            </div>
+            <div className="form-group">
+              <label>Right Ear:</label>
+              <Field name="earRight" type="text" />
+              <ErrorMessage name="earRight" component="div" className="error" />
+            </div>
+            <div className="form-group">
+              <label>Left Ear:</label>
+              <Field name="earLeft" type="text" />
+              <ErrorMessage name="earLeft" component="div" className="error" />
+            </div>
+
+            <div className="form-group">
+              <label>Lungs:</label>
+              <Field name="lungs" type="text" />
+              <ErrorMessage name="lungs" component="div" className="error" />
+            </div>
+            <div className="form-group">
+              <label>Liver:</label>
+              <Field name="liver" type="text" />
+              <ErrorMessage name="liver" component="div" className="error" />
+            </div>
+            <div className="form-group">
+              <label>Spleen:</label>
+              <Field name="spleen" type="text" />
+              <ErrorMessage name="spleen" component="div" className="error" />
+            </div>
+          </div>
 
           {/* Urine Test Section */}
           <div className="test-section">
