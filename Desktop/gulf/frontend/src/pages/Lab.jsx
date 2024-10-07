@@ -16,6 +16,26 @@ const LabReportForm = () => {
   const initialValues = {
     albumin: '',
     sugar: '',
+    microscopic: '', // New field for Urine
+  reaction: '', // New field for Urine
+  bloodTests: {
+    hivTest: '', // New field for Blood
+    hbsAg: '',   // New field for Blood
+    hcv: '',     // New field for Blood
+    esr: '',     // New field for Blood
+  },
+  generalExamination: {
+    hernia: '',         // New field for General Examination
+    varicoseVein: '',   // New field for General Examination
+    rightEye: '',       // New field for General Examination
+    leftEye: '',        // New field for General Examination
+  },
+  systemicExamination: {
+    heart: '',           // New field for Systemic Examination
+    bloodPressure: '',   // New field for Systemic Examination
+    pulseRate: '',       // New field for Systemic Examination
+  },
+
     fullHaemogram: {
       wbc: { value: '', units: '', status: '', range: '' },
       rbc: { value: '', units: '', status: '', range: '' },
@@ -52,6 +72,26 @@ const LabReportForm = () => {
   const validationSchema = Yup.object({
     albumin: Yup.string().required('Albumin is required'),
     sugar: Yup.string().required('Sugar is required'),
+    microscopic: Yup.string().required('Microscopic is required'), // New field for Urine
+  reaction: Yup.string().required('Reaction is required'), // New field for Urine
+  bloodTests: Yup.object({
+    hivTest: Yup.string().required('HIV Test is required'),
+    hbsAg: Yup.string().required('HbsAG is required'),
+    hcv: Yup.string().required('HCV is required'),
+    esr: Yup.number().required('ESR is required').min(1, 'Invalid ESR'),
+  }),
+  generalExamination: Yup.object({
+    hernia: Yup.string().required('Hernia is required'),
+    varicoseVein: Yup.string().required('Varicose Vein is required'),
+    rightEye: Yup.string().required('Right Eye is required'),
+    leftEye: Yup.string().required('Left Eye is required'),
+  }),
+  systemicExamination: Yup.object({
+    heart: Yup.string().required('Heart status is required'),
+    bloodPressure: Yup.string().required('Blood Pressure is required'),
+    pulseRate: Yup.string().required('Pulse Rate is required'),
+  }),
+
     fullHaemogram: Yup.object({
       wbc: Yup.object({ value: Yup.number().required('WBC is required') }),
       rbc: Yup.object({ value: Yup.number().required('RBC is required') }),
@@ -175,6 +215,17 @@ const LabReportForm = () => {
               <Field name="spleen" type="text" />
               <ErrorMessage name="spleen" component="div" className="error" />
             </div>
+            {/* Blood Group Section */}
+          <div className="form-group">
+            <label>Blood Group:</label>
+            <Field as="select" name="bloodGroup">
+              <option value="">Select Blood Group</option>
+              {bloodGroups.map((group) => (
+                <option key={group} value={group}>{group}</option>
+              ))}
+            </Field>
+            <ErrorMessage name="bloodGroup" component="div" className="error" />
+          </div>
           </div>
 
           {/* Urine Test Section */}
@@ -190,7 +241,88 @@ const LabReportForm = () => {
               <Field name="sugar" type="text" />
               <ErrorMessage name="sugar" component="div" className="error" />
             </div>
+          
+          <div className="form-group">
+            <label>Microscopic:</label>
+            <Field name="microscopic" type="text" />
+            <ErrorMessage name="microscopic" component="div" className="error" />
           </div>
+          <div className="form-group">
+            <label>Reaction:</label>
+            <Field name="reaction" type="text" />
+            <ErrorMessage name="reaction" component="div" className="error" />
+          </div>
+          </div>
+
+        {/* Blood Test Section */}
+        <div className="test-section">
+          <h3>Blood Test</h3>
+          <div className="form-group">
+            <label>HIV Test (I, II):</label>
+            <Field name="bloodTests.hivTest" type="text" />
+            <ErrorMessage name="bloodTests.hivTest" component="div" className="error" />
+          </div>
+          <div className="form-group">
+            <label>HbsAG:</label>
+            <Field name="bloodTests.hbsAg" type="text" />
+            <ErrorMessage name="bloodTests.hbsAg" component="div" className="error" />
+          </div>
+          <div className="form-group">
+            <label>HCV:</label>
+            <Field name="bloodTests.hcv" type="text" />
+            <ErrorMessage name="bloodTests.hcv" component="div" className="error" />
+          </div>
+          <div className="form-group">
+            <label>ESR (1st Hour):</label>
+            <Field name="bloodTests.esr" type="number" />
+            <ErrorMessage name="bloodTests.esr" component="div" className="error" />
+          </div>
+        </div>
+
+        {/* General Examination */}
+        <div className="test-section">
+          <h3>General Examination</h3>
+          <div className="form-group">
+            <label>Hernia:</label>
+            <Field name="generalExamination.hernia" type="text" />
+            <ErrorMessage name="generalExamination.hernia" component="div" className="error" />
+          </div>
+          <div className="form-group">
+            <label>Varicose Vein:</label>
+            <Field name="generalExamination.varicoseVein" type="text" />
+            <ErrorMessage name="generalExamination.varicoseVein" component="div" className="error" />
+          </div>
+          <div className="form-group">
+            <label>R. Eye:</label>
+            <Field name="generalExamination.rightEye" type="text" />
+            <ErrorMessage name="generalExamination.rightEye" component="div" className="error" />
+          </div>
+          <div className="form-group">
+            <label>L. Eye:</label>
+            <Field name="generalExamination.leftEye" type="text" />
+            <ErrorMessage name="generalExamination.leftEye" component="div" className="error" />
+          </div>
+        </div>
+
+        {/* Systemic Examination */}
+        <div className="test-section">
+          <h3>Systemic Examination</h3>
+          <div className="form-group">
+            <label>Heart:</label>
+            <Field name="systemicExamination.heart" type="text" />
+            <ErrorMessage name="systemicExamination.heart" component="div" className="error" />
+          </div>
+          <div className="form-group">
+            <label>Blood Pressure:</label>
+            <Field name="systemicExamination.bloodPressure" type="text" />
+            <ErrorMessage name="systemicExamination.bloodPressure" component="div" className="error" />
+          </div>
+          <div className="form-group">
+            <label>Pulse Rate:</label>
+            <Field name="systemicExamination.pulseRate" type="text" />
+            <ErrorMessage name="systemicExamination.pulseRate" component="div" className="error" />
+          </div>
+        </div>
 
           {/* Full Haemogram Report */}
           <div className="test-section">
@@ -226,9 +358,9 @@ const LabReportForm = () => {
                 </tr>
               </thead>
               <tbody>
-                <TableRow testName="Total Bilirubin" namePrefix="liverFunction.totalBilirubin" unitsPlaceholder="mg/dL" rangePlaceholder="0.1-1.2" />
-                <TableRow testName="Direct Bilirubin" namePrefix="liverFunction.directBilirubin" unitsPlaceholder="mg/dL" rangePlaceholder="0.0-0.3" />
-                <TableRow testName="SGOT" namePrefix="liverFunction.sgot" unitsPlaceholder="U/L" rangePlaceholder="7-56" />
+                <TableRow testName="Total Bilirubin" namePrefix="liverFunction.totalBilirubin"   />
+                <TableRow testName="Direct Bilirubin" namePrefix="liverFunction.directBilirubin" unitsPlaceholder="mg/dL" />
+                <TableRow testName="SGOT" namePrefix="liverFunction.sgot" unitsPlaceholder="U/L"  />
               </tbody>
             </table>
           </div>
@@ -252,17 +384,7 @@ const LabReportForm = () => {
             </table>
           </div>
 
-          {/* Blood Group Section */}
-          <div className="form-group">
-            <label>Blood Group:</label>
-            <Field as="select" name="bloodGroup">
-              <option value="">Select Blood Group</option>
-              {bloodGroups.map((group) => (
-                <option key={group} value={group}>{group}</option>
-              ))}
-            </Field>
-            <ErrorMessage name="bloodGroup" component="div" className="error" />
-          </div>
+          
 
           {/* Submit Button */}
           <button type="submit">Submit</button>
