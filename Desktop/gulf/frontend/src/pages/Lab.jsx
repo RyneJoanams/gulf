@@ -1,44 +1,157 @@
-import React, { useState } from 'react';
-import { Typography, TextField, Button, Container } from '@mui/material';
-import { usePatient } from '../context/PatientContext';
+import React, { useState, useEffect } from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import './Lab.css';
+import TableRow from '../components/TableRow';  // Reusable table row
 
-const Lab = () => {
-  const { patientData, updatePatientData } = usePatient();
-  const [testResults, setTestResults] = useState('');
+const LabReportForm = () => {
+  const [bloodGroups, setBloodGroups] = useState([]);
 
-  const handleTestResultsSubmit = () => {
-    updatePatientData({ testResults });
-    alert('Test results submitted');
+  useEffect(() => {
+    setTimeout(() => {
+      setBloodGroups(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']);
+    }, 1000);
+  }, []);
+
+  const initialValues = {
+    albumin: '',
+    sugar: '',
+    fullHaemogram: {
+      wbc: { value: '', units: '', status: '', range: '' },
+      rbc: { value: '', units: '', status: '', range: '' },
+      hgb: { value: '', units: '', status: '', range: '' }
+    },
+    liverFunction: {
+      totalBilirubin: { value: '', status: '', range: '' },
+      directBilirubin: { value: '', status: '', range: '' },
+      sgot: { value: '', status: '', range: '' },
+    },
+    renalFunction: {
+      urea: { value: '', status: '', range: '' },
+      creatinine: { value: '', status: '', range: '' },
+    },
+    bloodGroup: '',
   };
 
-  if (!patientData.labNumber) {
-    return <Typography>No lab number assigned. Please go to Phlebotomy first.</Typography>;
-  }
+  const validationSchema = Yup.object({
+    albumin: Yup.string().required('Albumin is required'),
+    sugar: Yup.string().required('Sugar is required'),
+    fullHaemogram: Yup.object({
+      wbc: Yup.object({ value: Yup.number().required('WBC is required') }),
+      rbc: Yup.object({ value: Yup.number().required('RBC is required') }),
+      hgb: Yup.object({ value: Yup.number().required('HGB is required') }),
+    }),
+    liverFunction: Yup.object({
+      totalBilirubin: Yup.object({ value: Yup.number().required('Total Bilirubin is required') }),
+    }),
+    urea: Yup.number().required('Urea is required'),
+    creatinine: Yup.number().required('Creatinine is required'),
+    bloodGroup: Yup.string().required('Blood Group is required'),
+  });
+
+  const handleSubmit = (values) => {
+    console.log('Submitted data:', values);
+  };
 
   return (
-    <Container>
-      <Typography variant="h4" align="center">Lab Tests</Typography>
-      <Typography variant="h6">Lab Number: {patientData.labNumber}</Typography>
+    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
+      {() => (
+        <Form>
+          <h1>Comprehensive Laboratory Examination Report</h1>
 
-      <TextField
-        label="Enter Test Results"
-        multiline
-        fullWidth
-        rows={4}
-        value={testResults}
-        onChange={(e) => setTestResults(e.target.value)}
-      />
+          {/* Urine Test Section */}
+          <div className="test-section">
+            <h3>Urine Test</h3>
+            <div className="form-group">
+              <label>Albumin:</label>
+              <Field name="albumin" type="text" />
+              <ErrorMessage name="albumin" component="div" className="error" />
+            </div>
+            <div className="form-group">
+              <label>Sugar:</label>
+              <Field name="sugar" type="text" />
+              <ErrorMessage name="sugar" component="div" className="error" />
+            </div>
+          </div>
 
-      <Button
-        variant="contained"
-        color="primary"
-        fullWidth
-        onClick={handleTestResultsSubmit}
-      >
-        Submit Test Results
-      </Button>
-    </Container>
+          {/* Full Haemogram Report */}
+          <div className="test-section">
+            <h3>Full Haemogram Report</h3>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Test</th>
+                  <th>Value</th>
+                  <th>Units</th>
+                  <th>Status</th>
+                  <th>Range</th>
+                </tr>
+              </thead>
+              <tbody>
+                <TableRow testName="WBC" namePrefix="fullHaemogram.wbc" unitsPlaceholder="cells/uL" rangePlaceholder="4,000-11,000" />
+                <TableRow testName="RBC" namePrefix="fullHaemogram.rbc" unitsPlaceholder="cells/uL" rangePlaceholder="4.7-6.1" />
+                <TableRow testName="HGB" namePrefix="fullHaemogram.hgb" unitsPlaceholder="g/dL" rangePlaceholder="13.5-17.5" />
+              </tbody>
+            </table>
+          </div>
+
+          {/* Liver Function Test */}
+          <div className="test-section">
+            <h3>Liver Function Test</h3>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Test</th>
+                  <th>Value</th>
+                  <th>Status</th>
+                  <th>Range</th>
+                </tr>
+              </thead>
+              <tbody>
+                <TableRow testName="Total Bilirubin" namePrefix="liverFunction.totalBilirubin" unitsPlaceholder="mg/dL" rangePlaceholder="0.1-1.2" />
+                <TableRow testName="Direct Bilirubin" namePrefix="liverFunction.directBilirubin" unitsPlaceholder="mg/dL" rangePlaceholder="0.0-0.3" />
+                <TableRow testName="SGOT" namePrefix="liverFunction.sgot" unitsPlaceholder="U/L" rangePlaceholder="7-56" />
+              </tbody>
+            </table>
+          </div>
+
+          {/* Renal Function Test */}
+          <div className="test-section">
+            <h3>Renal Function Test</h3>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Test</th>
+                  <th>Value</th>
+                  <th>Status</th>
+                  <th>Range</th>
+                </tr>
+              </thead>
+              <tbody>
+                <TableRow testName="Urea" namePrefix="renalFunction.urea" unitsPlaceholder="mg/dL" rangePlaceholder="7-20" />
+                <TableRow testName="Creatinine" namePrefix="renalFunction.creatinine" unitsPlaceholder="mg/dL" rangePlaceholder="0.6-1.2" />
+              </tbody>
+            </table>
+          </div>
+
+          {/* Blood Group Section */}
+          <div className="form-group">
+            <label>Blood Group:</label>
+            <Field as="select" name="bloodGroup">
+              <option value="">Select Blood Group</option>
+              {bloodGroups.map((group) => (
+                <option key={group} value={group}>{group}</option>
+              ))}
+            </Field>
+            <ErrorMessage name="bloodGroup" component="div" className="error" />
+          </div>
+
+          {/* Submit Button */}
+          <button type="submit">Submit</button>
+        </Form>
+      )}
+    </Formik>
   );
 };
 
-export default Lab;
+export default LabReportForm;
