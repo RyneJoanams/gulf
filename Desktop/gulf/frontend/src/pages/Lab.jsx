@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import './Lab.css';
 import TableRow from '../components/TableRow';  // Reusable table row
 
-const LabReportForm = () => {
+const Lab = () => {
   const [bloodGroups, setBloodGroups] = useState([]);
 
   useEffect(() => {
@@ -394,4 +394,4 @@ const LabReportForm = () => {
   );
 };
 
-export default LabReportForm;
+export default Lab;
