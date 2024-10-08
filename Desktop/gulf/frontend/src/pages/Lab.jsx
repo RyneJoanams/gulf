@@ -36,21 +36,47 @@ const Lab = () => {
     pulseRate: '',       // New field for Systemic Examination
   },
 
+
+
     fullHaemogram: {
-      wbc: { value: '', units: '', status: '', range: '' },
-      rbc: { value: '', units: '', status: '', range: '' },
-      hgb: { value: '', units: '', status: '', range: '' }
+      wbc:  { value: '', units: '', status: '', range: '' },
+      lym:  { value: '', units: '', status: '', range: '' },
+      mid:  { value: '', units: '', status: '', range: '' },
+      gran: { value: '', units: '', status: '', range: '' },
+      rbc:  { value: '', units: '', status: '', range: '' },
+      mcv:  { value: '', units: '', status: '', range: '' },
+      hgb:  { value: '', units: '', status: '', range: '' },
+      hct:  { value: '', units: '', status: '', range: '' },
+      mch:  { value: '', units: '', status: '', range: '' },
+      mchc: { value: '', units: '', status: '', range: '' },
+      rwd:  { value: '', units: '', status: '', range: '' },
+      plcr: { value: '', units: '', status: '', range: '' },
+      plt:  { value: '', units: '', status: '', range: '' },
+      mpv:  { value: '', units: '', status: '', range: '' },
+      pct:  { value: '', units: '', status: '', range: '' },
+      pdw:  { value: '', units: '', status: '', range: '' }
+
+      
     },
     liverFunction: {
       totalBilirubin: { value: '', status: '', range: '' },
       directBilirubin: { value: '', status: '', range: '' },
-      sgot: { value: '', status: '', range: '' },
-    },
+      indirectBilirubin: { value: '', status: '', range: '' },
+      sgot:   { value: '', status: '', range: '' },
+      sgpt:  { value: '', status: '', range: '' },
+      gammaGt:  { value: '', status: '', range: '' },
+      alkalinePhosphate:  { value: '', status: '', range: '' },
+      totalProteins:{ value: '', status: '', range: '' },
+      albumin1:  { value: '', status: '', range: '' },
+    }, 
     renalFunction: {
       urea: { value: '', status: '', range: '' },
       creatinine: { value: '', status: '', range: '' },
+      fastingBloodSugar: { value: '', status: '', range: '' },
     },
-    bloodGroup: '',
+
+    heafMantouxTest: '',
+    chestXray: '',
 
     // Added Area 1 Fields
     stoolConsistency: '',
@@ -67,6 +93,7 @@ const Lab = () => {
     lungs: '',
     liver: '',
     spleen: '',
+    bloodGroup: '',
   };
 
   const validationSchema = Yup.object({
@@ -91,18 +118,43 @@ const Lab = () => {
     bloodPressure: Yup.string().required('Blood Pressure is required'),
     pulseRate: Yup.string().required('Pulse Rate is required'),
   }),
+  heafMantouxTest: Yup.string().required('HEAF/MANTOUX TEST is required'),
+  chestXray: Yup.string().required('CHEST X-RAY is required'),
 
     fullHaemogram: Yup.object({
       wbc: Yup.object({ value: Yup.number().required('WBC is required') }),
+      lym:Yup.object({ value: Yup.number().required('LYM is required') }), 
+      mid:Yup.object({ value: Yup.number().required('MID is required') }),
+      gran:Yup.object({ value: Yup.number().required('GRAN is required') }),
       rbc: Yup.object({ value: Yup.number().required('RBC is required') }),
+      mcv:Yup.object({ value: Yup.number().required('MCV is required') }),
       hgb: Yup.object({ value: Yup.number().required('HGB is required') }),
+      hct:Yup.object({ value: Yup.number().required('HCT is required') }),
+      mch:Yup.object({ value: Yup.number().required('MCH is required') }),
+      mchc:Yup.object({ value: Yup.number().required('MCHC is required') }),
+      rwd:Yup.object({ value: Yup.number().required('RWD is required') }),
+      plcr:Yup.object({ value: Yup.number().required('P-LCR is required') }),
+      plt:Yup.object({ value: Yup.number().required('PLT is required') }),
+      mpv:Yup.object({ value: Yup.number().required('MPV is required') }),
+      pct:Yup.object({ value: Yup.number().required('PCT is required') }),
+      pdw:Yup.object({ value: Yup.number().required('PDW is required') }),
     }),
     liverFunction: Yup.object({
       totalBilirubin: Yup.object({ value: Yup.number().required('Total Bilirubin is required') }),
+      directBilirubin:Yup.object({ value: Yup.number().required('Direct Bilirubin is required') }),
+      indirectBilirubin:Yup.object({ value: Yup.number().required('Indirect Bilirubin is required') }),
+      sgot:Yup.object({ value: Yup.number().required('SGOT is required') }),
+      sgpt:Yup.object({ value: Yup.number().required('SGPT Bilirubin is required') }),
+      gammaGt:Yup.object({ value: Yup.number().required('GAMMA GT is required') }),
+      alkalinePhosphate:Yup.object({ value: Yup.number().required('Alkaline Phosphate is required') }),
+      totalProteins:Yup.object({ value: Yup.number().required('Totoal Proteins is required') }),
+      albumin1:Yup.object({ value: Yup.number().required('albumin is required') }),
     }),
-    urea: Yup.number().required('Urea is required'),
-    creatinine: Yup.number().required('Creatinine is required'),
-    bloodGroup: Yup.string().required('Blood Group is required'),
+    renalFunction: Yup.object({
+    urea: Yup.object({value: Yup.number().required('UREA is required')}),
+    creatinine: Yup.object({value: Yup.number().required('CREATININE is required')}),
+    fastingBloodSugar: Yup.object({value: Yup.number().required('Fasting Blood sugar required')}),
+    }),
 
     // Added Validation for Area 1 Fields
     stoolConsistency: Yup.string().required('Stool consistency is required'),
@@ -119,6 +171,7 @@ const Lab = () => {
     lungs: Yup.string().required('Lung status is required'),
     liver: Yup.string().required('Liver status is required'),
     spleen: Yup.string().required('Spleen status is required'),
+    bloodGroup: Yup.string().required('Blood Group is required'),
   });
 
   const handleSubmit = (values) => {
@@ -129,11 +182,112 @@ const Lab = () => {
     <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
       {() => (
         <Form>
-          <h1>Comprehensive Laboratory Examination Report</h1>
+          <h1><b>COMPREHENSIVE LABARATORY EXAMINATION REPORT</b></h1>
+
+
+          {/* Urine Test Section */}
+          <div className="test-section">
+            <h3>URINE TEST</h3>
+            <div className="form-group">
+              <label>Albumin:</label>
+              <Field name="albumin" type="text" />
+              <ErrorMessage name="albumin" component="div" className="error" />
+            </div>
+            <div className="form-group">
+              <label>Sugar:</label>
+              <Field name="sugar" type="text" />
+              <ErrorMessage name="sugar" component="div" className="error" />
+            </div>
+          
+          <div className="form-group">
+            <label>Microscopic:</label>
+            <Field name="microscopic" type="text" />
+            <ErrorMessage name="microscopic" component="div" className="error" />
+          </div>
+          <div className="form-group">
+            <label>Reaction:</label>
+            <Field name="reaction" type="text" />
+            <ErrorMessage name="reaction" component="div" className="error" />
+          </div>
+          <h3>Blood Test</h3>
+          <div className="form-group">
+            <label>HIV Test (I, II):</label>
+            <Field name="bloodTests.hivTest" type="text" />
+            <ErrorMessage name="bloodTests.hivTest" component="div" className="error" />
+          </div>
+          <div className="form-group">
+            <label>HbsAG:</label>
+            <Field name="bloodTests.hbsAg" type="text" />
+            <ErrorMessage name="bloodTests.hbsAg" component="div" className="error" />
+          </div>
+          <div className="form-group">
+            <label>HCV:</label>
+            <Field name="bloodTests.hcv" type="text" />
+            <ErrorMessage name="bloodTests.hcv" component="div" className="error" />
+          </div>
+          <div className="form-group">
+            <label>ESR (1st Hour):</label>
+            <Field name="bloodTests.esr" type="number" />
+            <ErrorMessage name="bloodTests.esr" component="div" className="error" />
+          </div>
+          <h3>General Examination</h3>
+          <div className="form-group">
+            <label>Hernia:</label>
+            <Field name="generalExamination.hernia" type="text" />
+            <ErrorMessage name="generalExamination.hernia" component="div" className="error" />
+          </div>
+          <div className="form-group">
+            <label>Varicose Vein:</label>
+            <Field name="generalExamination.varicoseVein" type="text" />
+            <ErrorMessage name="generalExamination.varicoseVein" component="div" className="error" />
+          </div>
+          <div className="form-group">
+            <label>R. Eye:</label>
+            <Field name="generalExamination.rightEye" type="text" />
+            <ErrorMessage name="generalExamination.rightEye" component="div" className="error" />
+          </div>
+          <div className="form-group">
+            <label>L. Eye:</label>
+            <Field name="generalExamination.leftEye" type="text" />
+            <ErrorMessage name="generalExamination.leftEye" component="div" className="error" />
+          </div>
+          <h3>Systemic Examination</h3>
+          <div className="form-group">
+            <label>Heart:</label>
+            <Field name="systemicExamination.heart" type="text" />
+            <ErrorMessage name="systemicExamination.heart" component="div" className="error" />
+          </div>
+          <div className="form-group">
+            <label>Blood Pressure:</label>
+            <Field name="systemicExamination.bloodPressure" type="text" />
+            <ErrorMessage name="systemicExamination.bloodPressure" component="div" className="error" />
+          </div>
+          <div className="form-group">
+            <label>Pulse Rate:</label>
+            <Field name="systemicExamination.pulseRate" type="text" />
+            <ErrorMessage name="systemicExamination.pulseRate" component="div" className="error" />
+          </div>
+          </div>
+
+
+          {/*heaf and chest x-ray*/}
+          <div className='test-section'>
+            <h3>HEAF/MANTOUX TEST & CHEST X-RAY</h3>
+            <div className='form-group'>
+              <label>HEAF/MANTOUX TEST:</label>
+              <Field name="heafMantouxTest" type="text" />
+              <ErrorMessage name='heafMantouxTest' component="div" className="error" />
+            </div>
+            <div className='form-group'>
+              <label>CHEST X-RAY:</label>
+              <Field name="chestXray" type="text" />
+              <ErrorMessage name='chestXray' component="div" className='error' />
+            </div>
+          </div>
 
           {/* Area 1: Comprehensive Lab Examination */}
           <div className="test-section">
-            <h3>Area 1:</h3>
+            <h3>AREA 1</h3>
             
             {/* Stool Analysis */}
             <div className="form-group">
@@ -228,102 +382,6 @@ const Lab = () => {
           </div>
           </div>
 
-          {/* Urine Test Section */}
-          <div className="test-section">
-            <h3>Urine Test</h3>
-            <div className="form-group">
-              <label>Albumin:</label>
-              <Field name="albumin" type="text" />
-              <ErrorMessage name="albumin" component="div" className="error" />
-            </div>
-            <div className="form-group">
-              <label>Sugar:</label>
-              <Field name="sugar" type="text" />
-              <ErrorMessage name="sugar" component="div" className="error" />
-            </div>
-          
-          <div className="form-group">
-            <label>Microscopic:</label>
-            <Field name="microscopic" type="text" />
-            <ErrorMessage name="microscopic" component="div" className="error" />
-          </div>
-          <div className="form-group">
-            <label>Reaction:</label>
-            <Field name="reaction" type="text" />
-            <ErrorMessage name="reaction" component="div" className="error" />
-          </div>
-          </div>
-
-        {/* Blood Test Section */}
-        <div className="test-section">
-          <h3>Blood Test</h3>
-          <div className="form-group">
-            <label>HIV Test (I, II):</label>
-            <Field name="bloodTests.hivTest" type="text" />
-            <ErrorMessage name="bloodTests.hivTest" component="div" className="error" />
-          </div>
-          <div className="form-group">
-            <label>HbsAG:</label>
-            <Field name="bloodTests.hbsAg" type="text" />
-            <ErrorMessage name="bloodTests.hbsAg" component="div" className="error" />
-          </div>
-          <div className="form-group">
-            <label>HCV:</label>
-            <Field name="bloodTests.hcv" type="text" />
-            <ErrorMessage name="bloodTests.hcv" component="div" className="error" />
-          </div>
-          <div className="form-group">
-            <label>ESR (1st Hour):</label>
-            <Field name="bloodTests.esr" type="number" />
-            <ErrorMessage name="bloodTests.esr" component="div" className="error" />
-          </div>
-        </div>
-
-        {/* General Examination */}
-        <div className="test-section">
-          <h3>General Examination</h3>
-          <div className="form-group">
-            <label>Hernia:</label>
-            <Field name="generalExamination.hernia" type="text" />
-            <ErrorMessage name="generalExamination.hernia" component="div" className="error" />
-          </div>
-          <div className="form-group">
-            <label>Varicose Vein:</label>
-            <Field name="generalExamination.varicoseVein" type="text" />
-            <ErrorMessage name="generalExamination.varicoseVein" component="div" className="error" />
-          </div>
-          <div className="form-group">
-            <label>R. Eye:</label>
-            <Field name="generalExamination.rightEye" type="text" />
-            <ErrorMessage name="generalExamination.rightEye" component="div" className="error" />
-          </div>
-          <div className="form-group">
-            <label>L. Eye:</label>
-            <Field name="generalExamination.leftEye" type="text" />
-            <ErrorMessage name="generalExamination.leftEye" component="div" className="error" />
-          </div>
-        </div>
-
-        {/* Systemic Examination */}
-        <div className="test-section">
-          <h3>Systemic Examination</h3>
-          <div className="form-group">
-            <label>Heart:</label>
-            <Field name="systemicExamination.heart" type="text" />
-            <ErrorMessage name="systemicExamination.heart" component="div" className="error" />
-          </div>
-          <div className="form-group">
-            <label>Blood Pressure:</label>
-            <Field name="systemicExamination.bloodPressure" type="text" />
-            <ErrorMessage name="systemicExamination.bloodPressure" component="div" className="error" />
-          </div>
-          <div className="form-group">
-            <label>Pulse Rate:</label>
-            <Field name="systemicExamination.pulseRate" type="text" />
-            <ErrorMessage name="systemicExamination.pulseRate" component="div" className="error" />
-          </div>
-        </div>
-
           {/* Full Haemogram Report */}
           <div className="test-section">
             <h3>Full Haemogram Report</h3>
@@ -338,51 +396,74 @@ const Lab = () => {
                 </tr>
               </thead>
               <tbody>
-                <TableRow testName="WBC" namePrefix="fullHaemogram.wbc" unitsPlaceholder="cells/uL" rangePlaceholder="4,000-11,000" />
-                <TableRow testName="RBC" namePrefix="fullHaemogram.rbc" unitsPlaceholder="cells/uL" rangePlaceholder="4.7-6.1" />
-                <TableRow testName="HGB" namePrefix="fullHaemogram.hgb" unitsPlaceholder="g/dL" rangePlaceholder="13.5-17.5" />
+                <TableRow testName="WBC" namePrefix="fullHaemogram.wbc" unitsPlaceholder="m/mm3" rangePlaceholder="4,000-11,000" />
+                <TableRow testName="LYM" namePrefix="fullHaemogram.lym" unitsPlaceholder="%" rangePlaceholder="13.5-50" />
+                <TableRow testName="MID" namePrefix="fullHaemogram.mid" unitsPlaceholder="%" rangePlaceholder="13.5-17.5" />
+                <TableRow testName="GRAN" namePrefix="fullHaemogram.gran" unitsPlaceholder="%" rangePlaceholder="13.5-17.5" />
+                <TableRow testName="RBC" namePrefix="fullHaemogram.rbc" unitsPlaceholder="m/mm3" rangePlaceholder="4.7-6.1" />
+                <TableRow testName="MCV" namePrefix="fullHaemogram.mcv" unitsPlaceholder="FI" rangePlaceholder="13.5-17.5" />
+                <TableRow testName="HGB" namePrefix="fullHaemogram.hgb" unitsPlaceholder="g/dl" rangePlaceholder="13.5-17.5" />
+                <TableRow testName="HCT" namePrefix="fullHaemogram.hct" unitsPlaceholder="%" rangePlaceholder="13.5-17.5" />
+                <TableRow testName="MCH" namePrefix="fullHaemogram.mch" unitsPlaceholder="Pg" rangePlaceholder="13.5-17.5" />
+                <TableRow testName="MCHC" namePrefix="fullHaemogram.mchc" unitsPlaceholder="g/dL" rangePlaceholder="13.5-17.5" />
+                <TableRow testName="RWD" namePrefix="fullHaemogram.rwd" unitsPlaceholder="%" rangePlaceholder="13.5-17.5" />
+                <TableRow testName="P-LCR" namePrefix="fullHaemogram.plcr" unitsPlaceholder="g/dl" rangePlaceholder="13.5-17.5" />
+                <TableRow testName="PLT" namePrefix="fullHaemogram.plt" unitsPlaceholder="m/mm3" rangePlaceholder="13.5-17.5" />
+                <TableRow testName="MPV" namePrefix="fullHaemogram.mpv" unitsPlaceholder="FI" rangePlaceholder="13.5-17.5" />
+                <TableRow testName="PCT" namePrefix="fullHaemogram.pct" unitsPlaceholder="%" rangePlaceholder="13.5-17.5" />
+                <TableRow testName="PDW" namePrefix="fullHaemogram.pdw" unitsPlaceholder="%" rangePlaceholder="13.5-17.5" />
               </tbody>
             </table>
           </div>
 
           {/* Liver Function Test */}
-          <div className="test-section">
+         <div className="test-section">
             <h3>Liver Function Test</h3>
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Test</th>
-                  <th>Value</th>
-                  <th>Status</th>
-                  <th>Range</th>
-                </tr>
-              </thead>
-              <tbody>
-                <TableRow testName="Total Bilirubin" namePrefix="liverFunction.totalBilirubin"   />
-                <TableRow testName="Direct Bilirubin" namePrefix="liverFunction.directBilirubin" unitsPlaceholder="mg/dL" />
-                <TableRow testName="SGOT" namePrefix="liverFunction.sgot" unitsPlaceholder="U/L"  />
-              </tbody>
-            </table>
-          </div>
+             <table className="table">
+               <thead>
+                 <tr>
+                   <th>Test</th>
+                   <th>Value</th>
+                   <th>Status</th>
+                   <th>Range</th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <TableRow testName="Total Bilirubin" namePrefix="liverFunction.totalBilirubin" rangePlaceholder="0.1-1.2" />
+                 <TableRow testName="Direct Bilirubin" namePrefix="liverFunction.directBilirubin" rangePlaceholder="0.0-0.3" />
+                 <TableRow testName="Indirect Bilirubin" namePrefix="liverFunction.indirectBilirubin" rangePlaceholder="7-56" />
+                 <TableRow testName="SGOT" namePrefix="liverFunction.sgot" rangePlaceholder="7-56" />
+                 <TableRow testName="SGPT" namePrefix="liverFunction.sgpt" rangePlaceholder="7-56" />
+                 <TableRow testName="GAMMA GT" namePrefix="liverFunction.gammaGt" rangePlaceholder="7-56" />
+                 <TableRow testName="Alkaline Phosphate" namePrefix="liverFunction.alkalinePhosphate" rangePlaceholder="7-56" />
+                 <TableRow testName="Total Proteins" namePrefix="liverFunction.totalProteins" rangePlaceholder="7-56" />
+                 <TableRow testName="Albumin" namePrefix="liverFunction.albumin1" rangePlaceholder="7-56" />
+                 
+               </tbody>
+             </table>
+           </div>
+
 
           {/* Renal Function Test */}
           <div className="test-section">
-            <h3>Renal Function Test</h3>
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Test</th>
-                  <th>Value</th>
-                  <th>Status</th>
-                  <th>Range</th>
-                </tr>
-              </thead>
-              <tbody>
-                <TableRow testName="Urea" namePrefix="renalFunction.urea" unitsPlaceholder="mg/dL" rangePlaceholder="7-20" />
-                <TableRow testName="Creatinine" namePrefix="renalFunction.creatinine" unitsPlaceholder="mg/dL" rangePlaceholder="0.6-1.2" />
-              </tbody>
-            </table>
-          </div>
+          <h3>Liver Function Test</h3>
+             <table className="table">
+               <thead>
+                 <tr>
+                   <th>Test</th>
+                   <th>Value</th>
+                   <th>Status</th>
+                   <th>Range</th>
+                 </tr>
+               </thead>
+               <tbody>
+               <TableRow testName="UREA" namePrefix="renalFunction.urea" rangePlaceholder="7-56" />
+               <TableRow testName="CREATININE" namePrefix="renalFunction.creatinine" rangePlaceholder="7-56" />
+               <TableRow testName="FASTING BLOOD SUGAR" namePrefix="renalFunction.fastingBloodSugar" rangePlaceholder="7-56" />
+               </tbody>
+               </table>
+
+          </div> 
 
           
 
