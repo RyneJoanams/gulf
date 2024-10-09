@@ -437,8 +437,7 @@ const Lab = () => {
                  <TableRow testName="GAMMA GT" namePrefix="liverFunction.gammaGt" rangePlaceholder="7-56" />
                  <TableRow testName="Alkaline Phosphate" namePrefix="liverFunction.alkalinePhosphate" rangePlaceholder="7-56" />
                  <TableRow testName="Total Proteins" namePrefix="liverFunction.totalProteins" rangePlaceholder="7-56" />
-                 <TableRow testName="Albumin" namePrefix="liverFunction.albumin1" rangePlaceholder="7-56" />
-                 
+                 <TableRow testName="Albumin" namePrefix="liverFunction.albumin1" rangePlaceholder="7-56" />                
                </tbody>
              </table>
            </div>
@@ -462,11 +461,9 @@ const Lab = () => {
                <TableRow testName="FASTING BLOOD SUGAR" namePrefix="renalFunction.fastingBloodSugar" rangePlaceholder="7-56" />
                </tbody>
                </table>
-
           </div> 
 
-          
-
+      
           {/* Submit Button */}
           <button type="submit">Submit</button>
         </Form>
