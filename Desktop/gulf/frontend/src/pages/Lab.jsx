@@ -370,16 +370,36 @@ const Lab = () => {
               <ErrorMessage name="spleen" component="div" className="error" />
             </div>
             {/* Blood Group Section */}
-          <div className="form-group">
-            <label>Blood Group:</label>
-            <Field as="select" name="bloodGroup">
-              <option value="">Select Blood Group</option>
-              {bloodGroups.map((group) => (
-                <option key={group} value={group}>{group}</option>
-              ))}
-            </Field>
-            <ErrorMessage name="bloodGroup" component="div" className="error" />
-          </div>
+          <Field
+  as="select"
+  name="bloodGroup"
+  style={{
+    width: "100%",
+    padding: "10px",
+    border: "1px solid #ccc",
+    borderRadius: "4px",
+    boxSizing: "border-box",
+    backgroundColor: "#fff",
+    fontSize: "1em",
+  }}
+>
+  <option value="">Select Blood Group</option>
+  {bloodGroups.map((group) => (
+    <option key={group} value={group}>
+      {group}
+    </option>
+  ))}
+</Field>
+<ErrorMessage
+  name="bloodGroup"
+  component="div"
+  style={{
+    color: "red",
+    fontSize: "0.9em",
+    marginTop: "5px",
+  }}
+/>
+
           </div>
 
           {/* Full Haemogram Report */}
@@ -464,8 +484,43 @@ const Lab = () => {
           </div> 
 
       
-          {/* Submit Button */}
-          <button type="submit">Submit</button>
+          <button
+  type="submit"
+  style={{
+    backgroundColor: "#1976D2", // Vibrant Blue
+    color: "white",
+    padding: "12px 20px",
+    fontSize: "1.1em",
+    border: "none",
+    borderRadius: "8px",
+    cursor: "pointer",
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+    transition: "background-color 0.3s ease, transform 0.2s ease",
+    width: "100%", // Full-width on small screens
+    maxWidth: "300px", // Limit width on larger screens
+    margin: "20px auto", // Center the button
+    display: "block",
+  }}
+  onMouseOver={(e) => {
+    e.target.style.backgroundColor = "#1565C0"; // Darker blue on hover
+    e.target.style.transform = "scale(1.02)"; // Slightly enlarge
+  }}
+  onMouseOut={(e) => {
+    e.target.style.backgroundColor = "#1976D2"; // Restore original color
+    e.target.style.transform = "scale(1)"; // Restore original size
+  }}
+  onMouseDown={(e) => {
+    e.target.style.backgroundColor = "#0D47A1"; // Even darker blue on click
+    e.target.style.transform = "scale(0.98)"; // Shrink on click
+  }}
+  onMouseUp={(e) => {
+    e.target.style.backgroundColor = "#1976D2"; // Restore color
+    e.target.style.transform = "scale(1)"; // Restore size
+  }}
+>
+  Submit
+</button>
+
         </Form>
       )}
     </Formik>
