@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
 import './Lab.css';
-import TableRow from '../components/TableRow';  // Reusable table row
+import TableRow from '../components/TableRow';  
 
 const Lab = () => {
   const [bloodGroups, setBloodGroups] = useState([]);
@@ -16,24 +15,24 @@ const Lab = () => {
   const initialValues = {
     albumin: '',
     sugar: '',
-    microscopic: '', // New field for Urine
-  reaction: '', // New field for Urine
+    microscopic: '', 
+  reaction: '', 
   bloodTests: {
-    hivTest: '', // New field for Blood
-    hbsAg: '',   // New field for Blood
-    hcv: '',     // New field for Blood
-    esr: '',     // New field for Blood
+    hivTest: '', 
+    hbsAg: '',   
+    hcv: '',     
+    esr: '',     
   },
   generalExamination: {
-    hernia: '',         // New field for General Examination
-    varicoseVein: '',   // New field for General Examination
-    rightEye: '',       // New field for General Examination
-    leftEye: '',        // New field for General Examination
+    hernia: '',        
+    varicoseVein: '',  
+    rightEye: '',      
+    leftEye: '',       
   },
   systemicExamination: {
-    heart: '',           // New field for Systemic Examination
-    bloodPressure: '',   // New field for Systemic Examination
-    pulseRate: '',       // New field for Systemic Examination
+    heart: '',          
+    bloodPressure: '',  
+    pulseRate: '',      
   },
 
 
@@ -96,90 +95,12 @@ const Lab = () => {
     bloodGroup: '',
   };
 
-  const validationSchema = Yup.object({
-    albumin: Yup.string().required('Albumin is required'),
-    sugar: Yup.string().required('Sugar is required'),
-    microscopic: Yup.string().required('Microscopic is required'), // New field for Urine
-  reaction: Yup.string().required('Reaction is required'), // New field for Urine
-  bloodTests: Yup.object({
-    hivTest: Yup.string().required('HIV Test is required'),
-    hbsAg: Yup.string().required('HbsAG is required'),
-    hcv: Yup.string().required('HCV is required'),
-    esr: Yup.number().required('ESR is required').min(1, 'Invalid ESR'),
-  }),
-  generalExamination: Yup.object({
-    hernia: Yup.string().required('Hernia is required'),
-    varicoseVein: Yup.string().required('Varicose Vein is required'),
-    rightEye: Yup.string().required('Right Eye is required'),
-    leftEye: Yup.string().required('Left Eye is required'),
-  }),
-  systemicExamination: Yup.object({
-    heart: Yup.string().required('Heart status is required'),
-    bloodPressure: Yup.string().required('Blood Pressure is required'),
-    pulseRate: Yup.string().required('Pulse Rate is required'),
-  }),
-  heafMantouxTest: Yup.string().required('HEAF/MANTOUX TEST is required'),
-  chestXray: Yup.string().required('CHEST X-RAY is required'),
-
-    fullHaemogram: Yup.object({
-      wbc: Yup.object({ value: Yup.number().required('WBC is required') }),
-      lym:Yup.object({ value: Yup.number().required('LYM is required') }), 
-      mid:Yup.object({ value: Yup.number().required('MID is required') }),
-      gran:Yup.object({ value: Yup.number().required('GRAN is required') }),
-      rbc: Yup.object({ value: Yup.number().required('RBC is required') }),
-      mcv:Yup.object({ value: Yup.number().required('MCV is required') }),
-      hgb: Yup.object({ value: Yup.number().required('HGB is required') }),
-      hct:Yup.object({ value: Yup.number().required('HCT is required') }),
-      mch:Yup.object({ value: Yup.number().required('MCH is required') }),
-      mchc:Yup.object({ value: Yup.number().required('MCHC is required') }),
-      rwd:Yup.object({ value: Yup.number().required('RWD is required') }),
-      plcr:Yup.object({ value: Yup.number().required('P-LCR is required') }),
-      plt:Yup.object({ value: Yup.number().required('PLT is required') }),
-      mpv:Yup.object({ value: Yup.number().required('MPV is required') }),
-      pct:Yup.object({ value: Yup.number().required('PCT is required') }),
-      pdw:Yup.object({ value: Yup.number().required('PDW is required') }),
-    }),
-    liverFunction: Yup.object({
-      totalBilirubin: Yup.object({ value: Yup.number().required('Total Bilirubin is required') }),
-      directBilirubin:Yup.object({ value: Yup.number().required('Direct Bilirubin is required') }),
-      indirectBilirubin:Yup.object({ value: Yup.number().required('Indirect Bilirubin is required') }),
-      sgot:Yup.object({ value: Yup.number().required('SGOT is required') }),
-      sgpt:Yup.object({ value: Yup.number().required('SGPT Bilirubin is required') }),
-      gammaGt:Yup.object({ value: Yup.number().required('GAMMA GT is required') }),
-      alkalinePhosphate:Yup.object({ value: Yup.number().required('Alkaline Phosphate is required') }),
-      totalProteins:Yup.object({ value: Yup.number().required('Totoal Proteins is required') }),
-      albumin1:Yup.object({ value: Yup.number().required('albumin is required') }),
-    }),
-    renalFunction: Yup.object({
-    urea: Yup.object({value: Yup.number().required('UREA is required')}),
-    creatinine: Yup.object({value: Yup.number().required('CREATININE is required')}),
-    fastingBloodSugar: Yup.object({value: Yup.number().required('Fasting Blood sugar required')}),
-    }),
-
-    // Added Validation for Area 1 Fields
-    stoolConsistency: Yup.string().required('Stool consistency is required'),
-    stoolMicroscopy: Yup.string().required('Stool microscopy is required'),
-    tpha: Yup.string().required('TPHA is required'),
-    vdrlTest: Yup.string().required('VDRL test is required'),
-    venerealDisease: Yup.string().required('Venereal disease is required'),
-    pregnancyTest: Yup.string().required('Pregnancy test is required'),
-    typhoid: Yup.string().required('Typhoid is required'),
-    hydrocele: Yup.string().required('Hydrocele is required'),
-    otherDeformities: Yup.string().required('Other deformities are required'),
-    earRight: Yup.string().required('Right ear status is required'),
-    earLeft: Yup.string().required('Left ear status is required'),
-    lungs: Yup.string().required('Lung status is required'),
-    liver: Yup.string().required('Liver status is required'),
-    spleen: Yup.string().required('Spleen status is required'),
-    bloodGroup: Yup.string().required('Blood Group is required'),
-  });
-
   const handleSubmit = (values) => {
     console.log('Submitted data:', values);
   };
 
   return (
-    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
+    <Formik initialValues={initialValues}  onSubmit={handleSubmit}>
       {() => (
         <Form>
           <h1><b>COMPREHENSIVE LABARATORY EXAMINATION REPORT</b></h1>
