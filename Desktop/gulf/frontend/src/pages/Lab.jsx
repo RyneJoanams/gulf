@@ -13,7 +13,8 @@ const TESTS_BY_UNIT = {
   renalFunction: [],
   heafChestTest: ['heafMantouxTest', 'chestXray'],
   area1: ['stoolConsistency','stoolMicroscopy', 'tpha', 'vdrlTest', 'venerealDisease', 'pregnancyTest',
-     'typhoid', 'hydrocele', 'otherDeformities','earRight', 'earLeft', 'lungs', 'liver', 'spleen', 'bloodGroup']
+     'typhoid', 'hydrocele', 'otherDeformities','earRight', 'earLeft', 'lungs', 'liver', 'spleen', ],
+  bloodGroup: []
 };
 
 const Lab = () => {
@@ -21,11 +22,23 @@ const Lab = () => {
   const [selectedUnits, setSelectedUnits] = useState({});
   const [selectedTests, setSelectedTests] = useState({});
   const [selectAll, setSelectAll] = useState({});
-
+  const [selectedBloodGroup, setSelectedBloodGroup] = useState('');
+  const [otherAspectsFit, setOtherAspectsFit] = useState('');
+  const [fitnessOpinion, setFitnessOpinion] = useState('');
+  const [labTechnician, setLabTechnician] = useState('');
 
   useEffect(() => {
     setTimeout(() => {
-      setBloodGroups(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']);
+      setBloodGroups([
+        { type: 'A', rhesus: '+ve' },
+        { type: 'A', rhesus: '-ve' },
+        { type: 'B', rhesus: '+ve' },
+        { type: 'B', rhesus: '-ve' },
+        { type: 'AB', rhesus: '+ve' },
+        { type: 'AB', rhesus: '-ve' },
+        { type: 'O', rhesus: '+ve' },
+        { type: 'O', rhesus: '-ve' },
+      ]);
     }, 1000);
   }, []);
 
@@ -106,6 +119,7 @@ const Lab = () => {
       setSelectAll((prev) => ({ ...prev, [unit]: false }));
       setSelectedTests((prev) => ({ ...prev, [unit]: {} }));
     }
+    if (selectedUnits.bloodGroup) setSelectedBloodGroup('');
   };
 
   const handleTestSelect = (unit, test) => {
@@ -137,16 +151,20 @@ const Lab = () => {
     }));
   };
 
+  const handleOtherAspectsChange = (event) => setOtherAspectsFit(event.target.value);
+  const handleFitnessOpinionChange = (event) => setFitnessOpinion(event.target.value);
+  const handleLabTechnicianChange = (event) => setLabTechnician(event.target.value);
+
   const handleSubmit = (values) => {
     console.log('Submitted data:', values);
   };
-
+  
   return (
     <Formik initialValues={initialValues}  onSubmit={handleSubmit}>
       {() => (
         <Form>
           <h1><b>COMPREHENSIVE LABARATORY EXAMINATION REPORT</b></h1>
-
+    
     {/* Urine Test Section */}
     <div className="test-section">
       <h3><label><input type="checkbox" checked={selectedUnits.urineTest || false} onChange={() => handleUnitSelect('urineTest')}/> <b>Urine Test</b></label>
@@ -269,7 +287,29 @@ const Lab = () => {
         )}
        </div>
 
-        {/* systemicexam Test Section */}
+        {/* Heaf mantoux and chest tests */}
+       <div className="test-section">
+        <h3><label><input type="checkbox" checked={selectedUnits.heafChestTest || false} onChange={() => handleUnitSelect('heafChestTest')}/><b>Heaf Mantoux and chest Tests</b></label>
+          {selectedUnits.heafChestTest && (
+            <label> <input type="checkbox" checked={selectAll.heafChestTest || false} onChange={() => handleSelectAllTests('heafChestTest')} />Select All</label>)}
+        </h3>
+         {selectedUnits.heafChestTest && (
+           <>
+             <div className="form-group">
+               <label><input type="checkbox" checked={selectedTests.heafChestTest?.heafMantouxTest || false} onChange={() => handleTestSelect('heafChestTest', 'heafMantouxTest')}/> Heaf Mantoux:</label>
+               {selectedTests.heafChestTest?.heafMantouxTest && (<Field name="heafChestTest.heafMantouxTest" type="text" /> )}
+               <ErrorMessage name="heafChestTest.heafMantouxTest" component="div" className="error" />
+             </div>
+             <div className="form-group">
+               <label><input type="checkbox" checked={selectedTests.heafChestTest?.chestXray || false} onChange={() => handleTestSelect('heafChestTest', 'chestXray')}/> Chest X-Ray:</label>
+               {selectedTests.heafChestTest?.chestXray && (<Field name="heafChestTest.chestXray" type="text" /> )}
+               <ErrorMessage name="heafChestTest.chestXray" component="div" className="error" />
+             </div>
+            </>
+         )}
+         </div>
+
+        {/* Area 1 Test Section */}
       <div className="test-section">
         <h3><label><input type="checkbox" checked={selectedUnits.area1 || false} onChange={() => handleUnitSelect('area1')}/><b>Area 1</b></label>
           {selectedUnits.area1 && (
@@ -347,47 +387,80 @@ const Lab = () => {
                {selectedTests.area1?.spleen && (<Field name="area1.spleen" type="text" /> )}
                <ErrorMessage name="area1.spleen" component="div" className="error" />
              </div>
-             <div className="form-group">
-               <label><input type="checkbox" checked={selectedTests.area1?.bloodGroup || false} onChange={() => handleTestSelect('area1', 'bloodGroup')}/> Blood Group:</label>
-               {selectedTests.area1?.bloodGroup && (<Field name="area1.bloodGroup" type="text" /> )}
-               <ErrorMessage name="area1.bloodGroup" component="div" className="error" />
-             </div>
              </>
         )}
        </div>
 
-          {/* Full Haemogram Section */}
-          <div className="test-section">
-            <h3><label><input type="checkbox" checked={selectedUnits.fullHaemogram || false} onChange={() => handleSelectAllTestsInUnit('fullHaemogram')}/> Full Haemogram Report</label>
-            </h3>
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Test</th>
-                  <th>Value</th>
-                  <th>Units</th>
-                  <th>Status</th>
-                  <th>Range</th>
-                </tr>
-              </thead>
-              <tbody>
-                {['wbc', 'lym', 'mid', 'gran', 'rbc', 'mcv', 'hgb', 'hct', 'mch', 'mchc', 'rwd', 'plcr', 'plt', 'mpv', 'pct', 'pdw'].map((test) => (
-                  <TableRow
-                    key={test}
-                    testName={test.toUpperCase()}
-                    namePrefix={`fullHaemogram.${test}`}
-                    unitsPlaceholder="Units"
-                    rangePlaceholder="Range"
-                    disabled={!selectedUnits.fullHaemogram} 
-                  />
-                ))}
-              </tbody>
-            </table>
-          </div>
+        {/* Blood Group test */}
+       <div>
+       <div className="test-section">
+        <h3><label><input type="checkbox" checked={selectedUnits.bloodGroup || false} onChange={() => handleUnitSelect('bloodGroup')}/><b>Blood Groups</b></label></h3>
+      {/* Dropdown for Blood Groups */}
+       {selectedUnits.bloodGroup && (
+        <div className="form-group">
+          <label><input type="checkbox" checked={selectedTests.bloodGroup || false} onChange={() => handleTestSelect('bloodGroup')}/> Blood Group:</label>
+          {selectedTests.bloodGroup && (<Field as="select" name="bloodGroup" id="bloodGroupSelect" value={selectedBloodGroup} onChange={(e) => setSelectedBloodGroup(e.target.value)}>
+            <option value="">-- Select Blood Group --</option>
+            {bloodGroups.map((group, index) => (
+              <option key={index} value={`${group.type}${group.rhesus}`}>{group.type}{group.rhesus}</option>
+            ))}
+          </Field>)}
+          <ErrorMessage name="bloodGroup" component="div" className="error" />
+        </div>
+       )}
+       </div>
+       </div>
+
+         {/* Full Haemogram Section */}
+        <div className="test-section">
+          <h3>
+            <label>
+              <input
+                type="checkbox"
+                checked={selectedUnits.fullHaemogram || false}
+                onChange={() => handleSelectAllTestsInUnit('fullHaemogram')}
+              />
+              <b>Full Haemogram Report</b>
+            </label>
+          </h3>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Test</th>
+                <th>Value</th>
+                <th>Units</th> {/* Include Units column here */}
+                <th>Status</th>
+                <th>Range</th>
+              </tr>
+            </thead>
+            <tbody>
+              {['wbc', 'lym', 'mid', 'gran', 'rbc', 'mcv', 'hgb', 'hct', 'mch', 'mchc', 'rwd', 'plcr', 'plt', 'mpv', 'pct', 'pdw'].map((test) => (
+                <TableRow
+                  key={test}
+                  testName={test.toUpperCase()}
+                  namePrefix={`fullHaemogram.${test}`}
+                  unitsPlaceholder="Units"
+                  rangePlaceholder="Range"
+                  disabled={!selectedUnits.fullHaemogram}
+                  showUnits={true} // Pass showUnits prop as true for Full Haemogram
+                />
+              ))}
+            </tbody>
+          </table>
+        </div>
+
 
           {/* Liver Function Test Section */}
           <div className="test-section">
-            <h3><label><input type="checkbox" checked={selectedUnits.liverFunction || false} onChange={() => handleSelectAllTestsInUnit('liverFunction')} /> Liver Function Test</label>
+            <h3>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={selectedUnits.liverFunction || false}
+                  onChange={() => handleSelectAllTestsInUnit('liverFunction')}
+                />
+                <b>Liver Function Test</b>
+              </label>
             </h3>
             <table className="table">
               <thead>
@@ -405,16 +478,18 @@ const Lab = () => {
                     testName={test.replace(/([A-Z])/g, ' $1')}
                     namePrefix={`liverFunction.${test}`}
                     rangePlaceholder="Range"
-                    disabled={!selectedUnits.liverFunction} 
+                    disabled={!selectedUnits.liverFunction}
+                    showUnits={false} // Pass showUnits as false for non-Haemogram sections
                   />
                 ))}
               </tbody>
             </table>
           </div>
 
+
           {/* Renal Function Test Section */}
           <div className="test-section">
-            <h3><label><input type="checkbox" checked={selectedUnits.renalFunction || false} onChange={() => handleSelectAllTestsInUnit('renalFunction')}/> Renal Function Test</label>
+            <h3><label><input type="checkbox" checked={selectedUnits.renalFunction || false} onChange={() => handleSelectAllTestsInUnit('renalFunction')}/><b>Renal Function Test</b></label>
             </h3>
             <table className="table">
               <thead>
@@ -433,17 +508,91 @@ const Lab = () => {
                     namePrefix={`renalFunction.${test}`}
                     rangePlaceholder="Range"
                     disabled={!selectedUnits.renalFunction} 
+                    showUnits={false}
                   />
                 ))}
               </tbody>
             </table>
           </div>
 
+          {/* Fitness Evaluation Section */}
+      <div className="fitness-evaluation-section">
+        <h3><b>Fitness Evaluation</b></h3>
+        {/* First Dropdown for Other Aspects */}
+        <div className="form-group">
+          <label>
+            Does applicant appear fit in all other respects?
+            <select
+              value={otherAspectsFit}
+              onChange={handleOtherAspectsChange}
+              className="input-select"
+            >
+              <option value="">Select</option>
+              <option value="YES">YES</option>
+              <option value="NO">NO</option>
+            </select>
+          </label>
+        </div>
+
+        {/* Second Dropdown for Overall Opinion */}
+        <div className="form-group">
+          <label>
+            In my opinion, I find the applicant
+            <select
+              value={fitnessOpinion}
+              onChange={handleFitnessOpinionChange}
+              className="input-select"
+            >
+              <option value="">Select</option>
+              <option value="FIT">FIT</option>
+              <option value="UNFIT">UNFIT</option>
+              <option value="NOT SURE">NOT SURE</option>
+            </select>
+            for employment.
+          </label>
+        </div>
+      </div>
+
+      {/* Lab Technician Input Field */}
+      <div className="lab-technician-section">
+        <h3>Lab Superitendant</h3>
+        <label>
+          Name:
+          <input
+            type="text"
+            placeholder="Enter Lab Superitendant Name"
+            value={labTechnician}
+            onChange={handleLabTechnicianChange}
+            className="input-field"
+          />
+        </label>
+      </div>
+
+
 
 
        
 
-          <button type="submit">Submit</button>
+          <button
+  type="submit"
+  style={{
+    padding: '12px 24px',
+    fontSize: '16px',
+    fontWeight: 'bold',
+    color: '#fff',
+    backgroundColor: 'teal',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s ease',
+    boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+  }}
+  onMouseOver={(e) => (e.target.style.backgroundColor = '#45a049')}
+  onMouseOut={(e) => (e.target.style.backgroundColor = 'teal')}
+>
+  Submit
+</button>
+
         </Form>
       )}
     </Formik>
